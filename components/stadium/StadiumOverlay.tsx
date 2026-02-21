@@ -8,7 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const SHADOW_CLASS =
-  "[text-shadow:0_2px_20px_rgba(0,0,0,0.9),0_0_40px_rgba(0,0,0,0.6)]";
+  "[text-shadow:0_1px_2px_rgba(255,255,255,0.8),0_0_20px_rgba(0,0,0,0.15)]";
 
 /** Scroll ranges (0–1) where each section is visible; only one active at a time. */
 const SECTION_RANGES: { start: number; end: number }[] = [
@@ -66,10 +66,10 @@ export default function StadiumOverlay() {
         }}
         className={`fixed inset-0 flex flex-col items-center justify-center px-4 transition-opacity duration-200 ${SHADOW_CLASS} ${activeIndex === 0 ? "visible opacity-100" : "invisible opacity-0"}`}
       >
-        <h2 className="font-display text-center text-6xl font-normal tracking-wide text-white md:text-7xl lg:text-[96px]">
+        <h2 className="font-display text-center text-6xl font-normal tracking-wide text-ucf-black md:text-7xl lg:text-[96px]">
           Acrisure Bounce House
         </h2>
-        <p className="mt-4 text-center text-xl text-white md:text-2xl">
+        <p className="mt-4 text-center text-xl text-ucf-black/90 md:text-2xl">
           Orlando&apos;s Home of Champions.
         </p>
       </div>
@@ -81,10 +81,10 @@ export default function StadiumOverlay() {
         }}
         className={`fixed inset-0 flex flex-col items-center justify-center px-4 transition-opacity duration-200 ${SHADOW_CLASS} ${activeIndex === 1 ? "visible opacity-100" : "invisible opacity-0"}`}
       >
-        <h2 className="font-display max-w-4xl text-center text-5xl font-normal tracking-wide text-white md:text-6xl lg:text-7xl">
+        <h2 className="font-display max-w-4xl text-center text-5xl font-normal tracking-wide text-ucf-black md:text-6xl lg:text-7xl">
           The Fan Experience, Reimagined
         </h2>
-        <p className="mt-6 max-w-2xl text-center text-lg text-white md:text-xl">
+        <p className="mt-6 max-w-2xl text-center text-lg text-ucf-black/90 md:text-xl">
           From the tunnel to the upper deck — every seat, every moment.
         </p>
       </div>
@@ -96,10 +96,10 @@ export default function StadiumOverlay() {
         }}
         className={`fixed inset-0 flex flex-col items-center justify-center px-4 transition-opacity duration-200 ${SHADOW_CLASS} ${activeIndex === 2 ? "visible opacity-100" : "invisible opacity-0"}`}
       >
-        <h2 className="font-display text-center text-6xl font-normal tracking-wide text-white md:text-7xl lg:text-8xl">
+        <h2 className="font-display text-center text-6xl font-normal tracking-wide text-ucf-black md:text-7xl lg:text-8xl">
           50,000 Strong
         </h2>
-        <p className="mt-6 max-w-2xl text-center text-lg text-white md:text-xl">
+        <p className="mt-6 max-w-2xl text-center text-lg text-ucf-black/90 md:text-xl">
           The largest crowd in UCF history, waiting for the next chapter.
         </p>
       </div>
@@ -111,7 +111,7 @@ export default function StadiumOverlay() {
         }}
         className={`fixed inset-0 flex flex-col items-center justify-center px-4 transition-opacity duration-200 ${SHADOW_CLASS} ${activeIndex === 3 ? "visible opacity-100 pointer-events-auto" : "invisible opacity-0"}`}
       >
-        <h2 className="font-display text-center text-5xl font-normal tracking-wide text-white md:text-6xl lg:text-7xl">
+        <h2 className="font-display text-center text-5xl font-normal tracking-wide text-ucf-black md:text-6xl lg:text-7xl">
           Build It With Antimatter
         </h2>
         <div className="mt-8">

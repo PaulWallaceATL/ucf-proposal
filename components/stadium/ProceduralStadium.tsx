@@ -1,15 +1,18 @@
 "use client";
 
 import { useMemo } from "react";
+import { Text } from "@react-three/drei";
 import * as THREE from "three";
 
 /** UCF official colors */
 const UCF_GOLD = "#FFC904";
 const UCF_GOLD_ALT = "#FFCC00";
 const UCF_BLACK = "#000000";
-const DARK_GREY = "#1a1a1a";
-const SEATING_GREY = "#252525";
-const FIELD_GREEN = "#2e6b27";
+/** Arena seating: visible greys on white background */
+const TIER1_GREY = "#5a5a5a";
+const TIER2_GREY = "#4a4a4a";
+const TIER3_GREY = "#3a3a3a";
+const FIELD_GREEN = "#2d7a2d";
 
 /** Oval stadium: longer X (length), shorter Z (width) like a football field */
 const FIELD_RX = 52;
@@ -45,20 +48,32 @@ export default function ProceduralStadium() {
 
   return (
     <group>
-      {/* Oval playing field (scaled circle for ellipse) */}
+      {/* Grass field: thick oval pad so it reads solid green */}
       <mesh
         rotation={[-Math.PI / 2, 0, 0]}
-        position={[0, 0, 0]}
+        position={[0, 0.2, 0]}
         scale={[FIELD_RX, 1, FIELD_RZ]}
         receiveShadow
       >
-        <circleGeometry args={[1, 64]} />
+        <cylinderGeometry args={[1, 1, 0.4, 64]} />
         <meshStandardMaterial color={FIELD_GREEN} />
       </mesh>
 
-      {/* Seating bowl: three tiers, oval */}
+      <Text
+        position={[0, 0.45, 0]}
+        rotation={[-Math.PI / 2, 0, 0]}
+        fontSize={14}
+        color={UCF_GOLD}
+        anchorX="center"
+        anchorY="middle"
+        maxWidth={FIELD_RX * 0.9}
+      >
+        UCF
+      </Text>
+
+      {/* Seating bowl: three tiers, oval - grey so visible on white */}
       {TIERS.map((tier, tierIdx) => {
-        const colors = [SEATING_GREY, DARK_GREY, UCF_BLACK];
+        const colors = [TIER1_GREY, TIER2_GREY, TIER3_GREY];
         const color = colors[tierIdx];
         const { rxInner, rzInner, rxOuter, rzOuter, yStart, yEnd, rows } = tier;
         return Array.from({ length: rows }).map((_, rowIdx) => {

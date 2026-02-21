@@ -152,13 +152,13 @@ function SceneContents() {
  */
 export default function StadiumScene() {
   return (
-    <div className="fixed inset-0 z-0 h-screen w-screen bg-ucf-black">
+    <div className="fixed inset-0 z-0 h-screen w-screen bg-ucf-white">
       <Canvas
         gl={{ antialias: true, alpha: false }}
         camera={{ fov: 60, near: 0.1, far: 2000, position: [95, 28, 95] }}
         shadows
         onCreated={({ scene }) => {
-          scene.background = new THREE.Color(0x000000);
+          scene.background = new THREE.Color(0xffffff);
         }}
       >
         <SceneContents />
