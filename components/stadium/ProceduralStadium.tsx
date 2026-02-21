@@ -3,152 +3,125 @@
 import { useMemo } from "react";
 import * as THREE from "three";
 
+/** UCF official colors */
 const UCF_GOLD = "#FFC904";
-const DARK_GREY = "#2a2a2a";
-const SEATING_DARK = "#1a1a1a";
-const FIELD_GREEN = "#3a7c32";
+const UCF_GOLD_ALT = "#FFCC00";
+const UCF_BLACK = "#000000";
+const DARK_GREY = "#1a1a1a";
+const SEATING_GREY = "#252525";
+const FIELD_GREEN = "#2e6b27";
 
-const FIELD_RADIUS = 48;
-const INNER_TIER_RADIUS = 58;
-const OUTER_TIER_RADIUS = 78;
-const TIER_HEIGHT = 4;
-const TIER_DEPTH = 8;
-const SEGMENTS = 64;
-const COLUMN_COUNT = 24;
-const COLUMN_RADIUS = 1.5;
-const COLUMN_HEIGHT = 18;
+/** Oval stadium: longer X (length), shorter Z (width) like a football field */
+const FIELD_RX = 52;
+const FIELD_RZ = 40;
+const TIER_SEGMENTS = 48;
+
+const TIERS = [
+  { rxInner: 48, rzInner: 36, rxOuter: 58, rzOuter: 44, yStart: 0, yEnd: 4, rows: 4 },
+  { rxInner: 58, rzInner: 44, rxOuter: 72, rzOuter: 54, yStart: 4, yEnd: 10, rows: 4 },
+  { rxInner: 72, rzInner: 54, rxOuter: 86, rzOuter: 62, yStart: 10, yEnd: 18, rows: 5 },
+];
 
 /**
- * Procedural stadium built from Three.js primitives: two seating tiers,
- * playing field, perimeter columns, and UCF gold accent lighting.
+ * Oval bowl-shaped stadium with UCF colors. Three tiers of seating around
+ * an elliptical field; gold trim and floodlights.
  */
 export default function ProceduralStadium() {
-  const innerTierSegments = useMemo(() => {
-    const boxes: { angle: number }[] = [];
-    for (let i = 0; i < SEGMENTS; i++) {
-      boxes.push({ angle: (i / SEGMENTS) * Math.PI * 2 });
-    }
-    return boxes;
-  }, []);
-
-  const outerTierSegments = useMemo(() => {
-    const boxes: { angle: number }[] = [];
-    for (let i = 0; i < SEGMENTS; i++) {
-      boxes.push({ angle: (i / SEGMENTS) * Math.PI * 2 });
-    }
-    return boxes;
-  }, []);
-
-  const columnPositions = useMemo(() => {
-    const positions: { angle: number }[] = [];
-    const r = OUTER_TIER_RADIUS + 6;
-    for (let i = 0; i < COLUMN_COUNT; i++) {
-      positions.push({ angle: (i / COLUMN_COUNT) * Math.PI * 2 });
-    }
+  const goldTrimPositions = useMemo(() => {
+    const positions: { angle: number; rx: number; rz: number; y: number }[] = [];
+    const tiers = [
+      { rx: 58, rz: 44, y: 4 },
+      { rx: 72, rz: 54, y: 10 },
+      { rx: 86, rz: 62, y: 18 },
+    ];
+    tiers.forEach(({ rx, rz, y }) => {
+      for (let j = 0; j < 24; j++) {
+        const angle = (j / 24) * Math.PI * 2;
+        positions.push({ angle, rx, rz, y });
+      }
+    });
     return positions;
   }, []);
 
   return (
     <group>
-      {/* Playing field: flat green cylinder */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
-        <cylinderGeometry args={[FIELD_RADIUS, FIELD_RADIUS, 0.5, 64]} />
+      {/* Oval playing field (scaled circle for ellipse) */}
+      <mesh
+        rotation={[-Math.PI / 2, 0, 0]}
+        position={[0, 0, 0]}
+        scale={[FIELD_RX, 1, FIELD_RZ]}
+        receiveShadow
+      >
+        <circleGeometry args={[1, 64]} />
         <meshStandardMaterial color={FIELD_GREEN} />
       </mesh>
 
-      {/* Inner seating tier: ring of box segments */}
-      <group position={[0, TIER_HEIGHT / 2, 0]}>
-        {innerTierSegments.map(({ angle }, i) => (
-          <mesh
-            key={`inner-${i}`}
-            position={[
-              Math.cos(angle) * INNER_TIER_RADIUS,
-              0,
-              Math.sin(angle) * INNER_TIER_RADIUS,
-            ]}
-            rotation={[0, -angle, 0]}
-            castShadow
-            receiveShadow
-          >
-            <boxGeometry args={[TIER_DEPTH * 0.9, TIER_HEIGHT, 3]} />
-            <meshStandardMaterial color={DARK_GREY} />
-          </mesh>
-        ))}
-      </group>
+      {/* Seating bowl: three tiers, oval */}
+      {TIERS.map((tier, tierIdx) => {
+        const colors = [SEATING_GREY, DARK_GREY, UCF_BLACK];
+        const color = colors[tierIdx];
+        const { rxInner, rzInner, rxOuter, rzOuter, yStart, yEnd, rows } = tier;
+        return Array.from({ length: rows }).map((_, rowIdx) => {
+          const t = (rowIdx + 0.5) / rows;
+          const rx = rxInner + (rxOuter - rxInner) * t;
+          const rz = rzInner + (rzOuter - rzInner) * t;
+          const y = yStart + (yEnd - yStart) * t;
+          const stepW = 2.2;
+          const stepD = 0.8;
+          return Array.from({ length: TIER_SEGMENTS }).map((_, i) => {
+            const angle = (i / TIER_SEGMENTS) * Math.PI * 2;
+            const x = Math.cos(angle) * rx;
+            const z = Math.sin(angle) * rz;
+            return (
+              <mesh
+                key={`t${tierIdx}-r${rowIdx}-${i}`}
+                position={[x, y, z]}
+                rotation={[0, -angle, 0]}
+                castShadow
+                receiveShadow
+              >
+                <boxGeometry args={[stepW, stepD, 1.2]} />
+                <meshStandardMaterial color={color} />
+              </mesh>
+            );
+          });
+        });
+      }).flat(2)}
 
-      {/* Outer seating tier: larger ring */}
-      <group position={[0, TIER_HEIGHT * 1.2, 0]}>
-        {outerTierSegments.map(({ angle }, i) => (
-          <mesh
-            key={`outer-${i}`}
-            position={[
-              Math.cos(angle) * OUTER_TIER_RADIUS,
-              0,
-              Math.sin(angle) * OUTER_TIER_RADIUS,
-            ]}
-            rotation={[0, -angle, 0]}
-            castShadow
-            receiveShadow
-          >
-            <boxGeometry args={[TIER_DEPTH * 1.2, TIER_HEIGHT * 1.5, 4]} />
-            <meshStandardMaterial color={SEATING_DARK} />
-          </mesh>
-        ))}
-      </group>
-
-      {/* Perimeter structural columns */}
-      {columnPositions.map(({ angle }, i) => (
+      {/* Gold trim at tier edges (oval) */}
+      {goldTrimPositions.map(({ angle, rx, rz, y }, i) => (
         <mesh
-          key={`col-${i}`}
-          position={[
-            Math.cos(angle) * (OUTER_TIER_RADIUS + 6),
-            COLUMN_HEIGHT / 2,
-            Math.sin(angle) * (OUTER_TIER_RADIUS + 6),
-          ]}
-          castShadow
-          receiveShadow
+          key={`trim-${i}`}
+          position={[Math.cos(angle) * rx, y + 0.2, Math.sin(angle) * rz]}
+          rotation={[0, -angle, 0]}
         >
-          <cylinderGeometry args={[COLUMN_RADIUS, COLUMN_RADIUS, COLUMN_HEIGHT, 8]} />
-          <meshStandardMaterial color={DARK_GREY} />
+          <boxGeometry args={[1.5, 0.15, 0.4]} />
+          <meshStandardMaterial color={UCF_GOLD} />
         </mesh>
       ))}
 
-      {/* UCF gold accent floodlights inside stadium */}
-      <pointLight
-        color={UCF_GOLD}
-        intensity={200}
-        distance={150}
-        position={[FIELD_RADIUS * 0.5, 14, 0]}
-        castShadow={false}
-      />
-      <pointLight
-        color={UCF_GOLD}
-        intensity={200}
-        distance={150}
-        position={[-FIELD_RADIUS * 0.5, 14, 0]}
-        castShadow={false}
-      />
-      <pointLight
-        color={UCF_GOLD}
-        intensity={200}
-        distance={150}
-        position={[0, 14, FIELD_RADIUS * 0.5]}
-        castShadow={false}
-      />
-      <pointLight
-        color={UCF_GOLD}
-        intensity={200}
-        distance={150}
-        position={[0, 14, -FIELD_RADIUS * 0.5]}
-        castShadow={false}
-      />
-      <pointLight
-        color={UCF_GOLD}
-        intensity={120}
-        distance={130}
-        position={[0, 10, 0]}
-        castShadow={false}
-      />
+      {/* Light towers at corners - UCF black with gold caps */}
+      {[
+        [1, 1], [1, -1], [-1, 1], [-1, -1],
+      ].map(([sx, sz], i) => (
+        <group key={i} position={[80 * sx, 14, 56 * sz]}>
+          <mesh castShadow receiveShadow>
+            <cylinderGeometry args={[1.2, 1.2, 24, 8]} />
+            <meshStandardMaterial color={UCF_BLACK} />
+          </mesh>
+          <mesh position={[0, 12.2, 0]}>
+            <cylinderGeometry args={[1.8, 2, 1.5, 8]} />
+            <meshStandardMaterial color={UCF_GOLD} />
+          </mesh>
+        </group>
+      ))}
+
+      {/* UCF gold floodlights */}
+      <pointLight color={UCF_GOLD} intensity={180} distance={140} position={[38, 16, 0]} />
+      <pointLight color={UCF_GOLD} intensity={180} distance={140} position={[-38, 16, 0]} />
+      <pointLight color={UCF_GOLD} intensity={180} distance={140} position={[0, 16, 30]} />
+      <pointLight color={UCF_GOLD} intensity={180} distance={140} position={[0, 16, -30]} />
+      <pointLight color={UCF_GOLD_ALT} intensity={80} distance={100} position={[0, 8, 0]} />
     </group>
   );
 }

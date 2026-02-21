@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useEffect, useMemo } from "react";
-import { Canvas, useThree } from "@react-three/fiber";
+import { useRef, useEffect, useMemo, useState } from "react";
+import { Canvas, useThree, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,24 +11,25 @@ gsap.registerPlugin(ScrollTrigger);
 
 const UCF_GOLD = "#FFC904";
 
+/** Shared scroll progress (0–1) for camera and stadium scale */
+const scrollProgressRef = { value: 0 };
+
 /**
- * Camera path: outside -> tunnel -> lower bowl -> upper deck -> bird's eye.
- * Stadium at origin; field radius ~48, outer ~84. Path keeps stadium in view.
+ * Camera path: outside -> approach -> lower bowl -> upper deck -> bird's eye.
+ * Oval stadium at origin; path keeps bowl in view.
  */
 function getCameraPath(): THREE.CatmullRomCurve3 {
-  const r = 90;
-  const rInner = 52;
   return new THREE.CatmullRomCurve3(
     [
-      new THREE.Vector3(85, 25, 85),
-      new THREE.Vector3(55, 15, 55),
-      new THREE.Vector3(0, 10, 45),
-      new THREE.Vector3(35, 8, 0),
-      new THREE.Vector3(0, 6, -38),
-      new THREE.Vector3(-35, 10, 0),
-      new THREE.Vector3(30, 18, 30),
-      new THREE.Vector3(0, 28, 0),
-      new THREE.Vector3(0, 50, 0),
+      new THREE.Vector3(95, 28, 95),
+      new THREE.Vector3(65, 18, 65),
+      new THREE.Vector3(0, 12, 48),
+      new THREE.Vector3(40, 8, 0),
+      new THREE.Vector3(0, 7, -42),
+      new THREE.Vector3(-40, 11, 0),
+      new THREE.Vector3(35, 20, 35),
+      new THREE.Vector3(0, 30, 0),
+      new THREE.Vector3(0, 52, 0),
     ],
     true
   );
@@ -36,7 +37,6 @@ function getCameraPath(): THREE.CatmullRomCurve3 {
 
 function ScrollDrivenCamera() {
   const { camera } = useThree();
-  const progressRef = useRef({ value: 0 });
   const curveRef = useRef<THREE.CatmullRomCurve3>(getCameraPath());
 
   useEffect(() => {
@@ -47,7 +47,7 @@ function ScrollDrivenCamera() {
       scrub: 1.2,
       invalidateOnRefresh: true,
       onUpdate: (self) => {
-        progressRef.current.value = self.progress;
+        scrollProgressRef.value = self.progress;
       },
     });
 
@@ -60,7 +60,7 @@ function ScrollDrivenCamera() {
     const curve = curveRef.current;
 
     const onUpdate = () => {
-      const p = progressRef.current.value;
+      const p = scrollProgressRef.value;
       const point = curve.getPoint(p);
       camera.position.copy(point);
       camera.lookAt(0, 0, 0);
@@ -74,6 +74,31 @@ function ScrollDrivenCamera() {
   }, [camera]);
 
   return null;
+}
+
+/** Wraps stadium with scroll-linked scale and hover scale */
+function StadiumWithInteractivity() {
+  const groupRef = useRef<THREE.Group>(null);
+  const [hovered, setHovered] = useState(false);
+  const scaleRef = useRef(1);
+
+  useFrame(() => {
+    if (!groupRef.current) return;
+    const scrollScale = 0.97 + scrollProgressRef.value * 0.06;
+    const targetScale = hovered ? scrollScale * 1.02 : scrollScale;
+    scaleRef.current += (targetScale - scaleRef.current) * 0.08;
+    groupRef.current.scale.setScalar(scaleRef.current);
+  });
+
+  return (
+    <group
+      ref={groupRef}
+      onPointerOver={() => setHovered(true)}
+      onPointerOut={() => setHovered(false)}
+    >
+      <ProceduralStadium />
+    </group>
+  );
 }
 
 function SpotLights() {
@@ -115,7 +140,7 @@ function SceneContents() {
         castShadow={false}
       />
       <SpotLights />
-      <ProceduralStadium />
+      <StadiumWithInteractivity />
       <ScrollDrivenCamera />
     </>
   );
@@ -130,7 +155,7 @@ export default function StadiumScene() {
     <div className="fixed inset-0 z-0 h-screen w-screen bg-ucf-black">
       <Canvas
         gl={{ antialias: true, alpha: false }}
-        camera={{ fov: 60, near: 0.1, far: 2000, position: [85, 25, 85] }}
+        camera={{ fov: 60, near: 0.1, far: 2000, position: [95, 28, 95] }}
         shadows
         onCreated={({ scene }) => {
           scene.background = new THREE.Color(0x000000);
