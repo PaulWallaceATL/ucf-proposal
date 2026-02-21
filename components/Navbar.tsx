@@ -1,19 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
-const NAV_LINKS = [
-  "Teams",
-  "Fan Zone",
-  "Watch/Listen",
-  "Athletics",
-  "Shop",
-  "Donate",
-  "Tickets",
-  "NIL",
-  "Stadium",
-  "Events",
-  "Pricing",
+const NAV_LINKS: { label: string; href: string }[] = [
+  { label: "Teams", href: "/teams" },
+  { label: "Fan Zone", href: "/fan-zone" },
+  { label: "Watch/Listen", href: "/watch-listen" },
+  { label: "Athletics", href: "/athletics" },
+  { label: "Shop", href: "/shop" },
+  { label: "Donate", href: "/donate" },
+  { label: "Tickets", href: "/tickets" },
+  { label: "NIL", href: "/nil" },
+  { label: "Stadium", href: "/stadium" },
+  { label: "Events", href: "/events" },
+  { label: "Pricing", href: "/pricing" },
 ];
 
 export default function Navbar() {
@@ -23,23 +24,23 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 w-full bg-ucf-black">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo placeholder */}
-        <div
-          className="font-bebas-neue text-xl tracking-wide text-ucf-gold sm:text-2xl"
-          style={{ fontFamily: "var(--font-bebas-neue), sans-serif" }}
+        <Link
+          href="/"
+          className="font-display text-xl tracking-wide text-ucf-gold sm:text-2xl"
         >
           UCF KNIGHTS
-        </div>
+        </Link>
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-6 lg:flex" aria-label="Main">
-          {NAV_LINKS.map((label) => (
-            <a
-              key={label}
-              href="#"
+          {NAV_LINKS.map(({ label, href }) => (
+            <Link
+              key={href}
+              href={href}
               className="text-ucf-white transition-colors hover:text-ucf-gold"
             >
               {label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -84,15 +85,15 @@ export default function Navbar() {
           aria-label="Main mobile"
         >
           <div className="flex flex-col gap-1 px-4 py-4">
-            {NAV_LINKS.map((label) => (
-              <a
-                key={label}
-                href="#"
+            {NAV_LINKS.map(({ label, href }) => (
+              <Link
+                key={href}
+                href={href}
                 className="rounded-md px-3 py-2 text-ucf-white transition-colors hover:bg-white/10 hover:text-ucf-gold"
                 onClick={() => setMobileOpen(false)}
               >
                 {label}
-              </a>
+              </Link>
             ))}
           </div>
         </nav>

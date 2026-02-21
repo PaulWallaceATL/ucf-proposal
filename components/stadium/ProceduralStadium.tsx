@@ -4,9 +4,9 @@ import { useMemo } from "react";
 import * as THREE from "three";
 
 const UCF_GOLD = "#FFC904";
-const DARK_GREY = "#1a1a1a";
-const BLACK = "#0a0a0a";
-const FIELD_GREEN = "#2d5a27";
+const DARK_GREY = "#2a2a2a";
+const SEATING_DARK = "#1a1a1a";
+const FIELD_GREEN = "#3a7c32";
 
 const FIELD_RADIUS = 48;
 const INNER_TIER_RADIUS = 58;
@@ -91,7 +91,7 @@ export default function ProceduralStadium() {
             receiveShadow
           >
             <boxGeometry args={[TIER_DEPTH * 1.2, TIER_HEIGHT * 1.5, 4]} />
-            <meshStandardMaterial color={BLACK} />
+            <meshStandardMaterial color={SEATING_DARK} />
           </mesh>
         ))}
       </group>
@@ -116,37 +116,37 @@ export default function ProceduralStadium() {
       {/* UCF gold accent floodlights inside stadium */}
       <pointLight
         color={UCF_GOLD}
-        intensity={80}
-        distance={120}
-        position={[FIELD_RADIUS * 0.5, 12, 0]}
+        intensity={200}
+        distance={150}
+        position={[FIELD_RADIUS * 0.5, 14, 0]}
         castShadow={false}
       />
       <pointLight
         color={UCF_GOLD}
-        intensity={80}
-        distance={120}
-        position={[-FIELD_RADIUS * 0.5, 12, 0]}
+        intensity={200}
+        distance={150}
+        position={[-FIELD_RADIUS * 0.5, 14, 0]}
         castShadow={false}
       />
       <pointLight
         color={UCF_GOLD}
-        intensity={80}
-        distance={120}
-        position={[0, 12, FIELD_RADIUS * 0.5]}
+        intensity={200}
+        distance={150}
+        position={[0, 14, FIELD_RADIUS * 0.5]}
         castShadow={false}
       />
       <pointLight
         color={UCF_GOLD}
-        intensity={80}
-        distance={120}
-        position={[0, 12, -FIELD_RADIUS * 0.5]}
+        intensity={200}
+        distance={150}
+        position={[0, 14, -FIELD_RADIUS * 0.5]}
         castShadow={false}
       />
       <pointLight
         color={UCF_GOLD}
-        intensity={40}
-        distance={100}
-        position={[0, 8, 0]}
+        intensity={120}
+        distance={130}
+        position={[0, 10, 0]}
         castShadow={false}
       />
     </group>

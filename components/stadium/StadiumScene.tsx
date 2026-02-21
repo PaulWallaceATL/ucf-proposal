@@ -13,22 +13,22 @@ const UCF_GOLD = "#FFC904";
 
 /**
  * Camera path: outside -> tunnel -> lower bowl -> upper deck -> bird's eye.
- * Stadium is roughly centered at origin; field radius ~48, outer ~84.
+ * Stadium at origin; field radius ~48, outer ~84. Path keeps stadium in view.
  */
 function getCameraPath(): THREE.CatmullRomCurve3 {
   const r = 90;
-  const rInner = 50;
+  const rInner = 52;
   return new THREE.CatmullRomCurve3(
     [
-      new THREE.Vector3(r * 1.2, r * 0.4, r * 1.2),
-      new THREE.Vector3(r * 0.6, r * 0.2, r * 0.6),
-      new THREE.Vector3(0, 8, r * 0.5),
-      new THREE.Vector3(rInner * 0.7, 6, 0),
-      new THREE.Vector3(0, 5, -rInner * 0.6),
-      new THREE.Vector3(-rInner * 0.6, 8, 0),
-      new THREE.Vector3(rInner * 0.5, 15, rInner * 0.5),
-      new THREE.Vector3(0, 25, 0),
-      new THREE.Vector3(0, 55, 0),
+      new THREE.Vector3(85, 25, 85),
+      new THREE.Vector3(55, 15, 55),
+      new THREE.Vector3(0, 10, 45),
+      new THREE.Vector3(35, 8, 0),
+      new THREE.Vector3(0, 6, -38),
+      new THREE.Vector3(-35, 10, 0),
+      new THREE.Vector3(30, 18, 30),
+      new THREE.Vector3(0, 28, 0),
+      new THREE.Vector3(0, 50, 0),
     ],
     true
   );
@@ -92,9 +92,9 @@ function SpotLights() {
         <spotLight
           key={i}
           position={pos}
-          angle={0.5}
-          penumbra={1}
-          intensity={120}
+          angle={0.6}
+          penumbra={0.5}
+          intensity={280}
           color={UCF_GOLD}
           castShadow
           target={target}
@@ -107,7 +107,13 @@ function SpotLights() {
 function SceneContents() {
   return (
     <>
-      <ambientLight intensity={0.3} />
+      <ambientLight intensity={0.65} />
+      <directionalLight
+        position={[40, 60, 40]}
+        intensity={0.8}
+        color="#ffffff"
+        castShadow={false}
+      />
       <SpotLights />
       <ProceduralStadium />
       <ScrollDrivenCamera />
@@ -124,7 +130,7 @@ export default function StadiumScene() {
     <div className="fixed inset-0 z-0 h-screen w-screen bg-ucf-black">
       <Canvas
         gl={{ antialias: true, alpha: false }}
-        camera={{ fov: 60, near: 0.1, far: 2000, position: [120, 40, 120] }}
+        camera={{ fov: 60, near: 0.1, far: 2000, position: [85, 25, 85] }}
         shadows
         onCreated={({ scene }) => {
           scene.background = new THREE.Color(0x000000);
