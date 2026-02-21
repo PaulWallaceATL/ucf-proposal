@@ -1,0 +1,39 @@
+# ============================================================
+# PROJECT: UCF Athletics Web Proposal — Antimatter
+# ============================================================
+
+## Tech Stack
+- Framework: Next.js 15 with App Router. Use server components by default; add 'use client' only when needed.
+- Language: TypeScript (strict mode). Use explicit prop interfaces. Never use `any`.
+- Styling: Tailwind CSS v4 exclusively. No inline styles. No separate CSS files. Mobile-first responsive design.
+- 3D: React Three Fiber (@react-three/fiber) and @react-three/drei. All 3D components must be client components.
+- Animation: GSAP with ScrollTrigger for scroll-driven animations. Framer Motion for micro-interactions.
+- Components: All reusable UI in `/components`. Page-specific components in `/components/[page-name]/`.
+
+## Brand Colors (UCF Official)
+- Primary Black: #000000 → Tailwind: `bg-ucf-black`, `text-ucf-black`
+- Primary Gold: #FFC904 → Tailwind: `bg-ucf-gold`, `text-ucf-gold`
+- Alt Gold: #FFCC00 → Tailwind: `bg-ucf-gold-alt`
+- White: #FFFFFF → Tailwind: `bg-ucf-white`, `text-ucf-white`
+
+## React Bits Pro
+- When building hero sections, feature grids, pricing tables, stats, CTAs, navigation, or social proof sections, first check if a suitable React Bits Pro block exists at https://pro.reactbits.dev/docs/blocks/.
+- Install components via: `npx shadcn@latest add @reactbits-pro/[component-name]`
+- License key is in `.env.local` as `REACT_BITS_PRO_LICENSE_KEY`.
+
+## Code Quality
+- Generate complete, production-ready files. No TODOs, no placeholders, no missing logic.
+- Every component must have a JSDoc comment describing its purpose and props.
+- All images must use `next/image` with explicit `width`, `height`, and `alt` props.
+- All links must use `next/link`.
+- Ensure all pages have proper `<title>` and `<meta description>` via Next.js Metadata API.
+
+## File Naming
+- Components: PascalCase (e.g., `StadiumScene.tsx` )
+- Pages: `page.tsx` inside route folders
+- Utilities: camelCase (e.g., `formatDate.ts`)
+
+## Performance
+- Use `next/dynamic` with `{ ssr: false }` for all Three.js/R3F components.
+- Lazy-load heavy components below the fold.
+- Use `next/image` with `priority` only for above-the-fold images.

@@ -3,13 +3,21 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --cursor-x: 0px;
+  --cursor-y: 0px;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-ucf-black: #000000;
+  --color-ucf-gold: #ffc904;
+  --color-ucf-gold-alt: #ffcc00;
+  --color-ucf-white: #ffffff;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-bebas-neue: "Bebas Neue", sans-serif;
+  --font-inter: Inter, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,5 +30,54 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+body.custom-cursor-active {
+  cursor: none;
+}
+
+body.custom-cursor-active a,
+body.custom-cursor-active button {
+  cursor: none;
+}
+
+/* Display headings: add class="font-display" to use Bebas Neue */
+.font-display {
+  font-family: var(--font-bebas-neue), sans-serif;
+}
+
+/* Hero aurora-style animated background (replace with React Bits Aurora/Dither Wave if desired) */
+@keyframes aurora-shift {
+  0%, 100% { opacity: 0.4; transform: scale(1) translate(0, 0); }
+  33% { opacity: 0.6; transform: scale(1.1) translate(2%, -1%); }
+  66% { opacity: 0.35; transform: scale(0.95) translate(-1%, 2%); }
+}
+
+.hero-aurora-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-aurora-bg::before,
+.hero-aurora-bg::after {
+  content: "";
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  top: -25%;
+  left: -25%;
+  border-radius: 40%;
+  filter: blur(80px);
+  animation: aurora-shift 18s ease-in-out infinite;
+}
+
+.hero-aurora-bg::before {
+  background: radial-gradient(ellipse at 30% 20%, rgba(255, 201, 4, 0.12) 0%, transparent 50%);
+}
+
+.hero-aurora-bg::after {
+  background: radial-gradient(ellipse at 70% 80%, rgba(255, 204, 0, 0.08) 0%, transparent 50%);
+  animation-delay: -9s;
 }
