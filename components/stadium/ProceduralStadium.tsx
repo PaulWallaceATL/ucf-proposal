@@ -48,13 +48,8 @@ export default function ProceduralStadium() {
 
   return (
     <group>
-      {/* Grass field: thick oval pad so it reads solid green */}
-      <mesh
-        rotation={[-Math.PI / 2, 0, 0]}
-        position={[0, 0.2, 0]}
-        scale={[FIELD_RX, 1, FIELD_RZ]}
-        receiveShadow
-      >
+      {/* Flat grass field in XZ plane (no rotation – cylinder axis Y = horizontal disc) */}
+      <mesh position={[0, 0.2, 0]} scale={[FIELD_RX, 1, FIELD_RZ]} receiveShadow>
         <cylinderGeometry args={[1, 1, 0.4, 64]} />
         <meshStandardMaterial color={FIELD_GREEN} />
       </mesh>
@@ -70,6 +65,12 @@ export default function ProceduralStadium() {
       >
         UCF
       </Text>
+
+      {/* Back wall: oval enclosure so stadium is not see-through */}
+      <mesh position={[0, 11, 0]} scale={[92, 1, 68]}>
+        <cylinderGeometry args={[1, 1, 22, 64]} />
+        <meshStandardMaterial color={TIER2_GREY} side={THREE.DoubleSide} />
+      </mesh>
 
       {/* Seating bowl: three tiers, oval - grey so visible on white */}
       {TIERS.map((tier, tierIdx) => {
