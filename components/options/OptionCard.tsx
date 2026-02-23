@@ -1,6 +1,6 @@
-import Link from "next/link";
 import type { MediaType } from "@/config/stadiumOptions";
 import MediaPreview from "./MediaPreview";
+import BrandButton from "@/components/ui/BrandButton";
 
 /**
  * Option card for the home page "Choose Your Experience" grid.
@@ -75,15 +75,9 @@ export default function OptionCard({
           ))}
         </ul>
 
-        <Link
-          href={route}
-          className="mt-6 flex items-center justify-center rounded-md bg-ucf-gold px-6 py-3 text-sm font-semibold text-ucf-black transition-opacity hover:opacity-90"
-        >
-          {ctaLabel}
-          <span className="ml-2" aria-hidden>
-            →
-          </span>
-        </Link>
+        <BrandButton href={route} variant="solid" size="md" className="mt-6 w-full">
+          {ctaLabel} →
+        </BrandButton>
       </div>
     </article>
   );

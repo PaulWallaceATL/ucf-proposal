@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useSyncExternalStore } from "react";
 import SplitText from "@/components/reactbits/SplitText";
 import { CONTACT_EMAIL } from "@/config/stadiumOptions";
+import BrandButton from "@/components/ui/BrandButton";
 
 const MQ = "(prefers-reduced-motion: reduce)";
 function subscribeRM(cb: () => void) {
@@ -111,18 +112,12 @@ export default function HeroContent() {
         and recruiting impact.
       </p>
       <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-        <a
-          href="#options"
-          className="inline-flex items-center justify-center rounded-md bg-ucf-gold px-8 py-4 text-base font-semibold text-ucf-black transition-opacity hover:opacity-90"
-        >
+        <BrandButton href="#options" variant="solid" size="lg">
           View Experience Options
-        </a>
-        <a
-          href={`mailto:${CONTACT_EMAIL}`}
-          className="inline-flex items-center justify-center rounded-md border-2 border-ucf-gold bg-transparent px-8 py-4 text-base font-semibold text-ucf-gold transition-colors hover:bg-ucf-gold hover:text-ucf-black"
-        >
+        </BrandButton>
+        <BrandButton href={`mailto:${CONTACT_EMAIL}`} variant="outline" size="lg">
           Speak to a Representative
-        </a>
+        </BrandButton>
       </div>
     </div>
   );

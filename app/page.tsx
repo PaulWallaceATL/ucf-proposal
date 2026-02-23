@@ -1,11 +1,12 @@
-import Link from "next/link";
 import type { Metadata } from "next";
 import { stadiumOptions, CONTACT_EMAIL } from "@/config/stadiumOptions";
 import OptionCard from "@/components/options/OptionCard";
 import AddOnsSection from "@/components/options/AddOnsSection";
 import VeoClipsGrid from "@/components/options/VeoClipsGrid";
 import WhyAntimatterSection from "@/components/sections/WhyAntimatterSection";
+import PricingSection from "@/components/sections/PricingSection";
 import HeroContent from "@/components/sections/HeroContent";
+import BrandButton from "@/components/ui/BrandButton";
 
 export const metadata: Metadata = {
   title: "UCF Stadium Digital Experience | Antimatter × UCF",
@@ -123,7 +124,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ───────── Section 6: Video Concepts (Coming Soon) ───────── */}
+      {/* ───────── Section 6: Pricing ───────── */}
+      <PricingSection />
+
+      {/* ───────── Section 7: Video Concepts (Coming Soon) ───────── */}
       <section className="w-full border-t border-white/10 bg-ucf-black px-4 py-16 md:py-20">
         <div className="mx-auto max-w-5xl">
           <h2 className="font-display mb-4 text-center text-3xl tracking-wide text-ucf-white md:text-4xl">
@@ -136,7 +140,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ───────── Section 7: Final CTA Band ───────── */}
+      {/* ───────── Section 8: Final CTA Band ───────── */}
       <section className="w-full border-t border-ucf-gold/20 bg-ucf-black px-4 py-16 md:py-24">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="font-display text-3xl font-normal tracking-wide text-ucf-white md:text-4xl lg:text-5xl">
@@ -146,18 +150,20 @@ export default function Home() {
             Ready to elevate the UCF premium experience? Get in touch.
           </p>
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <a
+            <BrandButton
               href={`mailto:${CONTACT_EMAIL}?subject=UCF Stadium Digital Experience — Proposal Request`}
-              className="inline-flex items-center justify-center rounded-md bg-ucf-gold px-8 py-4 font-semibold text-ucf-black transition-opacity hover:opacity-90"
+              variant="solid"
+              size="lg"
             >
               Request Proposal
-            </a>
-            <Link
+            </BrandButton>
+            <BrandButton
               href={`mailto:${CONTACT_EMAIL}`}
-              className="inline-flex items-center justify-center rounded-md border-2 border-ucf-gold bg-transparent px-8 py-4 font-semibold text-ucf-gold transition-colors hover:bg-ucf-gold hover:text-ucf-black"
+              variant="outline"
+              size="lg"
             >
               Email / Contact
-            </Link>
+            </BrandButton>
           </div>
         </div>
       </section>

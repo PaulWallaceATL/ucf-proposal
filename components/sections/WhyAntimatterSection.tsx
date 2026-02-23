@@ -8,6 +8,8 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { CONTACT_EMAIL } from "@/config/stadiumOptions";
+import DirectionalHoverCard from "@/components/ui/DirectionalHoverCard";
+import BrandButton from "@/components/ui/BrandButton";
 
 interface BentoTile {
   title: string;
@@ -63,8 +65,7 @@ const tiles: BentoTile[] = [
 ];
 
 /**
- * "Why Antimatter" bento-grid section for the homepage.
- * 4-column Magic Bento-inspired layout, fully UCF branded.
+ * "Why Antimatter" bento-grid section with directional hover effect.
  */
 export default function WhyAntimatterSection() {
   return (
@@ -84,15 +85,14 @@ export default function WhyAntimatterSection() {
           </p>
         </div>
 
-        {/* Bento grid: 4 cols on desktop, 2 on tablet, 1 on mobile */}
+        {/* Bento grid */}
         <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {tiles.map(({ title, body, icon: Icon, big }) => (
-            <div
+            <DirectionalHoverCard
               key={title}
-              className={`bento-tile group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.03] p-6 transition-[border-color,transform,box-shadow] duration-300 hover:border-ucf-gold/30 hover:shadow-lg hover:shadow-ucf-gold/[0.06] focus-visible:outline focus-visible:outline-2 focus-visible:outline-ucf-gold sm:p-7 ${
+              className={`bento-tile group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.03] p-6 transition-[border-color,transform,box-shadow] duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ucf-gold sm:p-7 ${
                 big ? "lg:col-span-2 lg:row-span-2" : "min-h-[200px]"
               }`}
-              tabIndex={0}
             >
               {/* Icon */}
               <div
@@ -128,21 +128,22 @@ export default function WhyAntimatterSection() {
                   {body}
                 </p>
               </div>
-            </div>
+            </DirectionalHoverCard>
           ))}
         </div>
 
-        {/* Footer: footnote + CTA */}
+        {/* Footer */}
         <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
           <p className="text-xs text-ucf-white/40">
             Case studies and references available upon request.
           </p>
-          <a
+          <BrandButton
             href={`mailto:${CONTACT_EMAIL}?subject=Antimatter Credentials — UCF`}
-            className="inline-flex items-center justify-center rounded-md border-2 border-ucf-gold bg-transparent px-6 py-3 text-sm font-semibold text-ucf-gold transition-colors hover:bg-ucf-gold hover:text-ucf-black sm:w-auto"
+            variant="outline"
+            size="md"
           >
             View Credentials
-          </a>
+          </BrandButton>
         </div>
       </div>
     </section>
