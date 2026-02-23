@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useSyncExternalStore } from "react";
 import SplitText from "@/components/reactbits/SplitText";
-import { CONTACT_EMAIL } from "@/config/stadiumOptions";
+import { CONTACT_EMAIL, CONTACT_SUBJECT } from "@/config/stadiumOptions";
 import BrandButton from "@/components/ui/BrandButton";
 
 const MQ = "(prefers-reduced-motion: reduce)";
@@ -115,8 +115,8 @@ export default function HeroContent() {
         <BrandButton href="#options" variant="solid" size="lg">
           View Experience Options
         </BrandButton>
-        <BrandButton href={`mailto:${CONTACT_EMAIL}`} variant="outline" size="lg">
-          Speak to a Representative
+        <BrandButton href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(CONTACT_SUBJECT)}`} variant="outline" size="lg">
+          Let&apos;s Talk
         </BrandButton>
       </div>
     </div>

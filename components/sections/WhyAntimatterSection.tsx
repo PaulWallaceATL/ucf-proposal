@@ -7,7 +7,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { CONTACT_EMAIL } from "@/config/stadiumOptions";
+import { CONTACT_EMAIL, CONTACT_SUBJECT } from "@/config/stadiumOptions";
 import DirectionalHoverCard from "@/components/ui/DirectionalHoverCard";
 import BrandButton from "@/components/ui/BrandButton";
 
@@ -138,11 +138,11 @@ export default function WhyAntimatterSection() {
             Case studies and references available upon request.
           </p>
           <BrandButton
-            href={`mailto:${CONTACT_EMAIL}?subject=Antimatter Credentials — UCF`}
+            href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(CONTACT_SUBJECT)}`}
             variant="outline"
             size="md"
           >
-            View Credentials
+            Let&apos;s Talk
           </BrandButton>
         </div>
       </div>

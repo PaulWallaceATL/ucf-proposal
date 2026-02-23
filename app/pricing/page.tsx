@@ -47,7 +47,7 @@ const FAQ_ITEMS = [
   },
 ] as const;
 
-const CONTACT_EMAIL = "hello@antimatter.io";
+const CONTACT_EMAIL = "Paul@antimatterai.com";
 
 /**
  * Pricing page: hero, three-tier table, how it works, FAQ, and footer CTA.

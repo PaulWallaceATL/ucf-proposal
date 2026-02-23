@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { StadiumOption } from "@/config/stadiumOptions";
-import { CONTACT_EMAIL } from "@/config/stadiumOptions";
+import { CONTACT_EMAIL, CONTACT_SUBJECT } from "@/config/stadiumOptions";
 import MediaPreview from "./MediaPreview";
 import Timeline from "./Timeline";
 import AddOnsSection from "./AddOnsSection";
@@ -168,14 +168,14 @@ export default function OptionPageLayout({ option }: OptionPageLayoutProps) {
           </p>
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <a
-              href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(option.title)} — UCF Proposal`}
-              className="inline-flex items-center justify-center rounded-md bg-ucf-gold px-8 py-4 font-semibold text-ucf-black transition-opacity hover:opacity-90"
+              href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(CONTACT_SUBJECT)}`}
+              className="inline-flex items-center justify-center rounded-full bg-ucf-gold px-8 py-4 font-semibold text-ucf-black shadow-[0_0_20px_rgba(255,201,4,0.35)] transition-all hover:shadow-[0_0_30px_rgba(255,201,4,0.55)]"
             >
-              Speak to a Representative
+              Let&apos;s Connect
             </a>
             <Link
               href="/#options"
-              className="inline-flex items-center justify-center rounded-md border-2 border-ucf-gold bg-transparent px-8 py-4 font-semibold text-ucf-gold transition-colors hover:bg-ucf-gold hover:text-ucf-black"
+              className="inline-flex items-center justify-center rounded-full border-2 border-ucf-gold bg-transparent px-8 py-4 font-semibold text-ucf-gold transition-colors hover:bg-ucf-gold/10"
             >
               Compare All Options
             </Link>

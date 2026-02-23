@@ -195,4 +195,5 @@ export function getOptionBySlug(slug: string): StadiumOption | undefined {
   return stadiumOptions.find((o) => o.slug === slug);
 }
 
-export const CONTACT_EMAIL = "hello@antimatter.io";
+export const CONTACT_EMAIL = "Paul@antimatterai.com";
+export const CONTACT_SUBJECT = "Let's Work Together";

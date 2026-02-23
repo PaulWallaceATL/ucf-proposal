@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { stadiumOptions, CONTACT_EMAIL } from "@/config/stadiumOptions";
+import { stadiumOptions, CONTACT_EMAIL, CONTACT_SUBJECT } from "@/config/stadiumOptions";
 import OptionCard from "@/components/options/OptionCard";
 import AddOnsSection from "@/components/options/AddOnsSection";
 import VeoClipsGrid from "@/components/options/VeoClipsGrid";
@@ -151,18 +151,18 @@ export default function Home() {
           </p>
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <BrandButton
-              href={`mailto:${CONTACT_EMAIL}?subject=UCF Stadium Digital Experience — Proposal Request`}
+              href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(CONTACT_SUBJECT)}`}
               variant="solid"
               size="lg"
             >
-              Request Proposal
+              Let&apos;s Connect
             </BrandButton>
             <BrandButton
-              href={`mailto:${CONTACT_EMAIL}`}
+              href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(CONTACT_SUBJECT)}`}
               variant="outline"
               size="lg"
             >
-              Email / Contact
+              Let&apos;s Talk
             </BrandButton>
           </div>
         </div>
