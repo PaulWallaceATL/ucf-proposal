@@ -1,12 +1,11 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { stadiumOptions, CONTACT_EMAIL } from "@/config/stadiumOptions";
-import { stadiumMapImage } from "@/config/stadiumProposalAssets";
 import OptionCard from "@/components/options/OptionCard";
 import AddOnsSection from "@/components/options/AddOnsSection";
 import VeoClipsGrid from "@/components/options/VeoClipsGrid";
 import WhyAntimatterSection from "@/components/sections/WhyAntimatterSection";
+import HeroContent from "@/components/sections/HeroContent";
 
 export const metadata: Metadata = {
   title: "UCF Stadium Digital Experience | Antimatter × UCF",
@@ -29,46 +28,22 @@ export default function Home() {
       <section className="relative w-full overflow-hidden bg-ucf-black px-4 py-20 md:py-28 lg:py-32">
         <div className="hero-aurora-bg" aria-hidden />
         <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* Left column */}
-          <div>
-            <h1 className="font-display text-4xl font-normal tracking-wide text-ucf-white sm:text-5xl md:text-6xl lg:text-7xl">
-              UCF Stadium Digital Experience
-            </h1>
-            <p className="mt-6 text-lg leading-relaxed text-ucf-gold sm:text-xl md:text-2xl">
-              Three premium web experience options to showcase luxury seating,
-              suites, and event spaces—built inside UCFKnights.com.
-            </p>
-            <p className="mt-3 text-sm text-ucf-white/60">
-              Designed to elevate donor perception, premium seating conversion,
-              and recruiting impact.
-            </p>
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <a
-                href="#options"
-                className="inline-flex items-center justify-center rounded-md bg-ucf-gold px-8 py-4 text-base font-semibold text-ucf-black transition-opacity hover:opacity-90"
-              >
-                View Experience Options
-              </a>
-              <a
-                href={`mailto:${CONTACT_EMAIL}`}
-                className="inline-flex items-center justify-center rounded-md border-2 border-ucf-gold bg-transparent px-8 py-4 text-base font-semibold text-ucf-gold transition-colors hover:bg-ucf-gold hover:text-ucf-black"
-              >
-                Speak to a Representative
-              </a>
-            </div>
-          </div>
+          {/* Left column: animated text */}
+          <HeroContent />
 
-          {/* Right column: stadium map in premium frame */}
+          {/* Right column: stadium video in premium frame */}
           <div className="relative mx-auto w-full max-w-lg lg:max-w-none">
             <div className="overflow-hidden rounded-2xl border border-ucf-gold/20 bg-white/5 p-2 shadow-2xl shadow-ucf-gold/5">
-              <div className="relative aspect-square overflow-hidden rounded-xl">
-                <Image
-                  src={stadiumMapImage}
-                  alt="UCF stadium seating map"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  priority
+              <div className="relative aspect-video overflow-hidden rounded-xl">
+                <video
+                  className="h-full w-full object-cover"
+                  src="/assets/Stadium_Zoom_Video_Generation.mp4"
+                  autoPlay
+                  muted
+                  playsInline
+                  loop
+                  preload="metadata"
+                  aria-label="Stadium cinematic zoom video"
                 />
               </div>
             </div>
