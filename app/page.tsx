@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { stadiumOptions, CONTACT_EMAIL, CONTACT_SUBJECT } from "@/config/stadiumOptions";
 import OptionCard from "@/components/options/OptionCard";
 import AddOnsSection from "@/components/options/AddOnsSection";
-import VeoClipsGrid from "@/components/options/VeoClipsGrid";
 import WhyAntimatterSection from "@/components/sections/WhyAntimatterSection";
 import PricingSection from "@/components/sections/PricingSection";
 import HeroContent from "@/components/sections/HeroContent";
@@ -127,20 +126,7 @@ export default function Home() {
       {/* ───────── Section 6: Pricing ───────── */}
       <PricingSection />
 
-      {/* ───────── Section 7: Video Concepts (Coming Soon) ───────── */}
-      <section className="w-full border-t border-white/10 bg-ucf-black px-4 py-16 md:py-20">
-        <div className="mx-auto max-w-5xl">
-          <h2 className="font-display mb-4 text-center text-3xl tracking-wide text-ucf-white md:text-4xl">
-            Video Concepts
-          </h2>
-          <p className="mx-auto mb-10 max-w-2xl text-center text-sm text-ucf-white/60">
-            We can turn existing stadium renders into cinematic clips.
-          </p>
-          <VeoClipsGrid />
-        </div>
-      </section>
-
-      {/* ───────── Section 8: Final CTA Band ───────── */}
+      {/* ───────── Section 7: Final CTA Band ───────── */}
       <section className="w-full border-t border-ucf-gold/20 bg-ucf-black px-4 py-16 md:py-24">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="font-display text-3xl font-normal tracking-wide text-ucf-white md:text-4xl lg:text-5xl">
