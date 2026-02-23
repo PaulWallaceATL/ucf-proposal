@@ -78,7 +78,7 @@ const itemVariants = {
  */
 export default function PricingSection() {
   return (
-    <section className="w-full border-t border-white/10 bg-ucf-black px-4 py-16 md:py-24">
+    <section id="pricing" className="w-full scroll-mt-20 border-t border-white/10 bg-ucf-black px-4 py-16 md:py-24">
       <motion.div
         className="mx-auto max-w-6xl"
         initial="hidden"

@@ -90,7 +90,7 @@ export default function Home() {
       <WhyAntimatterSection />
 
       {/* ───────── Section 4: What's Included ───────── */}
-      <section className="w-full border-t border-white/10 bg-ucf-black px-4 py-16 md:py-20">
+      <section id="included" className="w-full scroll-mt-20 border-t border-white/10 bg-ucf-black px-4 py-16 md:py-20">
         <div className="mx-auto max-w-4xl">
           <h2 className="font-display mb-10 text-center text-3xl tracking-wide text-ucf-white md:text-4xl">
             What&apos;s Included in Every Package
@@ -114,7 +114,7 @@ export default function Home() {
       </section>
 
       {/* ───────── Section 5: Production Add-Ons ───────── */}
-      <section className="w-full border-t border-white/10 bg-ucf-black px-4 py-16 md:py-20">
+      <section id="add-ons" className="w-full scroll-mt-20 border-t border-white/10 bg-ucf-black px-4 py-16 md:py-20">
         <div className="mx-auto max-w-4xl">
           <h2 className="font-display mb-10 text-center text-3xl tracking-wide text-ucf-white md:text-4xl">
             Production Add-Ons

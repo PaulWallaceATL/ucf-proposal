@@ -69,7 +69,7 @@ const tiles: BentoTile[] = [
  */
 export default function WhyAntimatterSection() {
   return (
-    <section className="w-full border-t border-white/10 bg-ucf-black px-4 py-16 md:py-20">
+    <section id="why-antimatter" className="w-full scroll-mt-20 border-t border-white/10 bg-ucf-black px-4 py-16 md:py-20">
       <div className="mx-auto max-w-7xl">
         {/* Header */}
         <div className="mb-10 text-center md:mb-14">
