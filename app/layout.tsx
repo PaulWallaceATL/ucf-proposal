@@ -18,9 +18,26 @@ const bebasNeue = Bebas_Neue({
 });
 
 export const metadata: Metadata = {
-  title: "UCF Stadium Digital Experience | Antimatter × UCF",
+  metadataBase: new URL("https://ucf-proposal.vercel.app"),
+  title: {
+    default: "UCF Stadium Digital Experience | Antimatter × UCF",
+    template: "%s | Antimatter × UCF",
+  },
   description:
     "Three premium web experience options to showcase luxury seating, suites, and event spaces—built inside UCFKnights.com.",
+  openGraph: {
+    title: "UCF Stadium Digital Experience",
+    description:
+      "Three premium web experience options to showcase luxury seating, suites, and event spaces—built inside UCFKnights.com.",
+    siteName: "Antimatter × UCF",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "UCF Stadium Digital Experience",
+    description:
+      "Three premium web experience options to showcase luxury seating, suites, and event spaces—built inside UCFKnights.com.",
+  },
 };
 
 export default function RootLayout({
