@@ -81,3 +81,10 @@ body.custom-cursor-active button {
   background: radial-gradient(ellipse at 70% 80%, rgba(255, 204, 0, 0.08) 0%, transparent 50%);
   animation-delay: -9s;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-aurora-bg::before,
+  .hero-aurora-bg::after {
+    animation: none;
+  }
+}

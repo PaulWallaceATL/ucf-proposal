@@ -14,6 +14,7 @@ const NAV_LINKS: { label: string; href: string }[] = [
   { label: "NIL", href: "/nil" },
   { label: "Stadium", href: "/stadium" },
   { label: "Events", href: "/events" },
+  { label: "Options", href: "/#options" },
   { label: "Pricing", href: "/pricing" },
 ];
 
