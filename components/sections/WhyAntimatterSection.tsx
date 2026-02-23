@@ -13,28 +13,42 @@ interface BentoTile {
   title: string;
   body: string;
   icon: LucideIcon;
+  big?: boolean;
 }
 
+/**
+ * Tile order is intentional for the 4-column bento layout:
+ *
+ *  Desktop (4 cols, 3 rows):
+ *  ┌──────┬──────┬─────────────┐
+ *  │  T0  │  T1  │     T2      │
+ *  ├──────┴──────┤   (big)     │
+ *  │     T3      ├──────┬──────┤
+ *  │   (big)     │  T4  │  T5  │
+ *  └─────────────┴──────┴──────┘
+ */
 const tiles: BentoTile[] = [
-  {
-    title: "Trusted by Serious Orgs",
-    body: "We partner with organizations like OWASP\u2014the global leader in cybersecurity\u2014where precision and reliability are non-negotiable.",
-    icon: ShieldCheck,
-  },
   {
     title: "US-Based Senior Team",
     body: "A senior, US-based team across design, engineering, and delivery\u2014built for responsive collaboration and accountability.",
     icon: Users,
   },
   {
-    title: "100% Uptime Track Record",
-    body: "100% uptime since company inception across all client deployments. We treat reliability like a feature, not a hope.",
-    icon: Activity,
-  },
-  {
     title: "Security-First Delivery",
     body: "Modern best practices for secure architecture, access control, and operational hygiene\u2014especially for high-visibility brands.",
     icon: Lock,
+  },
+  {
+    title: "Trusted by Serious Orgs",
+    body: "We partner with organizations like OWASP\u2014the global leader in cybersecurity\u2014where precision and reliability are non-negotiable. When the stakes are high, teams trust Antimatter to deliver.",
+    icon: ShieldCheck,
+    big: true,
+  },
+  {
+    title: "100% Uptime Track Record",
+    body: "100% uptime since company inception across all client deployments. We treat reliability like a feature, not a hope. Your launch day is safe with us.",
+    icon: Activity,
+    big: true,
   },
   {
     title: "Design + Engineering Under One Roof",
@@ -50,14 +64,14 @@ const tiles: BentoTile[] = [
 
 /**
  * "Why Antimatter" bento-grid section for the homepage.
- * Uses a Magic Bento-inspired layout re-skinned to UCF brand colors.
+ * 4-column Magic Bento-inspired layout, fully UCF branded.
  */
 export default function WhyAntimatterSection() {
   return (
     <section className="w-full border-t border-white/10 bg-ucf-black px-4 py-16 md:py-20">
       <div className="mx-auto max-w-7xl">
         {/* Header */}
-        <div className="mb-12 text-center md:mb-16">
+        <div className="mb-10 text-center md:mb-14">
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-ucf-gold">
             Why Antimatter
           </p>
@@ -70,31 +84,47 @@ export default function WhyAntimatterSection() {
           </p>
         </div>
 
-        {/* Bento grid */}
-        <div className="bento-grid">
-          {tiles.map(({ title, body, icon: Icon }, i) => (
+        {/* Bento grid: 4 cols on desktop, 2 on tablet, 1 on mobile */}
+        <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {tiles.map(({ title, body, icon: Icon, big }) => (
             <div
               key={title}
-              className={`bento-tile group relative flex flex-col justify-between overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] p-6 transition-[border-color,transform,box-shadow] duration-300 hover:border-ucf-gold/40 hover:shadow-lg hover:shadow-ucf-gold/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ucf-gold md:p-7 ${
-                i === 0 ? "bento-tile--wide" : ""
-              } ${i === 3 ? "bento-tile--tall" : ""}`}
+              className={`bento-tile group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.03] p-6 transition-[border-color,transform,box-shadow] duration-300 hover:border-ucf-gold/30 hover:shadow-lg hover:shadow-ucf-gold/[0.06] focus-visible:outline focus-visible:outline-2 focus-visible:outline-ucf-gold sm:p-7 ${
+                big ? "lg:col-span-2 lg:row-span-2" : "min-h-[200px]"
+              }`}
               tabIndex={0}
             >
               {/* Icon */}
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-ucf-gold/10">
+              <div
+                className={`mb-5 flex items-center justify-center rounded-xl bg-ucf-gold/[0.08] ${
+                  big ? "h-12 w-12" : "h-10 w-10"
+                }`}
+              >
                 <Icon
-                  className="h-5 w-5 text-ucf-gold transition-colors duration-300 group-hover:text-ucf-gold-alt"
+                  className={`text-ucf-gold transition-colors duration-300 group-hover:text-ucf-gold-alt ${
+                    big ? "h-6 w-6" : "h-5 w-5"
+                  }`}
                   strokeWidth={1.75}
                   aria-hidden
                 />
               </div>
 
               {/* Text */}
-              <div>
-                <h3 className="font-display text-lg tracking-wide text-ucf-white md:text-xl">
+              <div className="mt-auto">
+                <h3
+                  className={`font-display tracking-wide text-ucf-white ${
+                    big
+                      ? "text-xl sm:text-2xl lg:text-3xl"
+                      : "text-lg md:text-xl"
+                  }`}
+                >
                   {title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-ucf-white/70">
+                <p
+                  className={`mt-2 leading-relaxed text-ucf-white/60 ${
+                    big ? "text-sm sm:text-base" : "text-sm"
+                  }`}
+                >
                   {body}
                 </p>
               </div>
