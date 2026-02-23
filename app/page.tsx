@@ -6,6 +6,7 @@ import WhyAntimatterSection from "@/components/sections/WhyAntimatterSection";
 import PricingSection from "@/components/sections/PricingSection";
 import HeroContent from "@/components/sections/HeroContent";
 import BrandButton from "@/components/ui/BrandButton";
+import NeonRevealCTA from "@/components/ui/NeonRevealCTA";
 
 export const metadata: Metadata = {
   title: "UCF Stadium Digital Experience | Antimatter × UCF",
@@ -127,7 +128,7 @@ export default function Home() {
       <PricingSection />
 
       {/* ───────── Section 7: Final CTA Band ───────── */}
-      <section className="w-full border-t border-ucf-gold/20 bg-ucf-black px-4 py-16 md:py-24">
+      <NeonRevealCTA className="bg-ucf-black px-4 py-16 md:py-24">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="font-display text-3xl font-normal tracking-wide text-ucf-white md:text-4xl lg:text-5xl">
             Let&apos;s Build Something Extraordinary
@@ -152,7 +153,7 @@ export default function Home() {
             </BrandButton>
           </div>
         </div>
-      </section>
+      </NeonRevealCTA>
     </>
   );
 }

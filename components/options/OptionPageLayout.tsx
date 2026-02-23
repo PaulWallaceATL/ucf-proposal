@@ -8,6 +8,7 @@ import MediaPreview from "./MediaPreview";
 import Timeline from "./Timeline";
 import AddOnsSection from "./AddOnsSection";
 import BrandButton from "@/components/ui/BrandButton";
+import NeonRevealCTA from "@/components/ui/NeonRevealCTA";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -168,28 +169,30 @@ export default function OptionPageLayout({ option }: OptionPageLayoutProps) {
       </motion.section>
 
       {/* Section 7: CTA Footer */}
-      <motion.section className="w-full border-t border-white/10 bg-ucf-black px-4 py-16 text-center md:py-24" variants={itemVariants}>
-        <div className="mx-auto max-w-2xl">
-          <h2 className="font-display text-3xl font-normal tracking-wide text-ucf-white md:text-4xl lg:text-5xl">
-            Ready to Get Started?
-          </h2>
-          <p className="mt-4 text-ucf-white/70">
-            Let&apos;s discuss how this option fits your goals.
-          </p>
-          <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <BrandButton
-              href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(CONTACT_SUBJECT)}`}
-              variant="solid"
-              size="lg"
-            >
-              Let&apos;s Connect
-            </BrandButton>
-            <BrandButton href="/#options" variant="outline" size="lg">
-              Compare All Options
-            </BrandButton>
+      <motion.div variants={itemVariants}>
+        <NeonRevealCTA className="bg-ucf-black px-4 py-16 text-center md:py-24">
+          <div className="mx-auto max-w-2xl">
+            <h2 className="font-display text-3xl font-normal tracking-wide text-ucf-white md:text-4xl lg:text-5xl">
+              Ready to Get Started?
+            </h2>
+            <p className="mt-4 text-ucf-white/70">
+              Let&apos;s discuss how this option fits your goals.
+            </p>
+            <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+              <BrandButton
+                href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(CONTACT_SUBJECT)}`}
+                variant="solid"
+                size="lg"
+              >
+                Let&apos;s Connect
+              </BrandButton>
+              <BrandButton href="/#options" variant="outline" size="lg">
+                Compare All Options
+              </BrandButton>
+            </div>
           </div>
-        </div>
-      </motion.section>
+        </NeonRevealCTA>
+      </motion.div>
     </motion.div>
   );
 }

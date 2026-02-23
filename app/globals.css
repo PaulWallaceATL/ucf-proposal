@@ -121,3 +121,55 @@ body {
     transform: none;
   }
 }
+
+/* Neon Reveal CTA — gold gradient sweep on scroll */
+@keyframes neonSweep {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+.neon-cta {
+  border-top: 1px solid rgba(255, 201, 4, 0.15);
+}
+
+.neon-cta--hidden {
+  background: transparent;
+}
+
+.neon-cta--revealed {
+  background:
+    linear-gradient(180deg, rgba(255, 201, 4, 0.08) 0%, transparent 40%),
+    linear-gradient(90deg, transparent 0%, rgba(255, 201, 4, 0.06) 30%, rgba(255, 201, 4, 0.10) 50%, rgba(255, 201, 4, 0.06) 70%, transparent 100%);
+  animation: neonSweep 1.2s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+.neon-cta--revealed::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 201, 4, 0.5), rgba(255, 201, 4, 0.8), rgba(255, 201, 4, 0.5), transparent);
+  animation: neonSweep 1s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .neon-cta--revealed {
+    animation: none;
+    background:
+      linear-gradient(180deg, rgba(255, 201, 4, 0.08) 0%, transparent 40%);
+  }
+  .neon-cta--revealed::after {
+    animation: none;
+  }
+}
