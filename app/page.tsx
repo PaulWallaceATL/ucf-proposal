@@ -6,6 +6,7 @@ import { stadiumMapImage } from "@/config/stadiumProposalAssets";
 import OptionCard from "@/components/options/OptionCard";
 import AddOnsSection from "@/components/options/AddOnsSection";
 import VeoClipsGrid from "@/components/options/VeoClipsGrid";
+import WhyAntimatterSection from "@/components/sections/WhyAntimatterSection";
 
 export const metadata: Metadata = {
   title: "UCF Stadium Digital Experience | Antimatter × UCF",
@@ -108,7 +109,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ───────── Section 3: What's Included ───────── */}
+      {/* ───────── Section 3: Why Antimatter ───────── */}
+      <WhyAntimatterSection />
+
+      {/* ───────── Section 4: What's Included ───────── */}
       <section className="w-full border-t border-white/10 bg-ucf-black px-4 py-16 md:py-20">
         <div className="mx-auto max-w-4xl">
           <h2 className="font-display mb-10 text-center text-3xl tracking-wide text-ucf-white md:text-4xl">
@@ -132,7 +136,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ───────── Section 4: Production Add-Ons ───────── */}
+      {/* ───────── Section 5: Production Add-Ons ───────── */}
       <section className="w-full border-t border-white/10 bg-ucf-black px-4 py-16 md:py-20">
         <div className="mx-auto max-w-4xl">
           <h2 className="font-display mb-10 text-center text-3xl tracking-wide text-ucf-white md:text-4xl">
@@ -142,7 +146,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ───────── Section 5: Video Concepts (Coming Soon) ───────── */}
+      {/* ───────── Section 6: Video Concepts (Coming Soon) ───────── */}
       <section className="w-full border-t border-white/10 bg-ucf-black px-4 py-16 md:py-20">
         <div className="mx-auto max-w-5xl">
           <h2 className="font-display mb-4 text-center text-3xl tracking-wide text-ucf-white md:text-4xl">
@@ -155,7 +159,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ───────── Section 6: Final CTA Band ───────── */}
+      {/* ───────── Section 7: Final CTA Band ───────── */}
       <section className="w-full border-t border-ucf-gold/20 bg-ucf-black px-4 py-16 md:py-24">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="font-display text-3xl font-normal tracking-wide text-ucf-white md:text-4xl lg:text-5xl">
