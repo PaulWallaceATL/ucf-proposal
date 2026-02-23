@@ -145,11 +145,12 @@ export default function Home() {
               Let&apos;s Connect
             </BrandButton>
             <BrandButton
-              href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(CONTACT_SUBJECT)}`}
+              href="https://antimatterai.com"
               variant="outline"
               size="lg"
+              external
             >
-              Let&apos;s Talk
+              Visit Antimatter
             </BrandButton>
           </div>
         </div>

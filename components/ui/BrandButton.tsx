@@ -45,8 +45,13 @@ export default function BrandButton({
 
   if (href) {
     if (external || href.startsWith("mailto:") || href.startsWith("#")) {
+      const isHttp = href.startsWith("http");
       return (
-        <a href={href} className={base}>
+        <a
+          href={href}
+          className={base}
+          {...(isHttp ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+        >
           {overlay}
           <span className="relative z-10">{children}</span>
         </a>
