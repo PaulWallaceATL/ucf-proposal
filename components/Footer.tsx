@@ -1,65 +1,23 @@
-const COLUMN_1 = [
-  "Staff Directory",
-  "Academics",
-  "Facilities",
-  "Employment",
-  "Compliance",
-];
+import { CONTACT_EMAIL, CONTACT_SUBJECT } from "@/config/stadiumOptions";
+import BrandButton from "@/components/ui/BrandButton";
 
-const COLUMN_2 = [
-  "Marching Knights",
-  "Knightmare Society",
-  "Mission XII",
-  "UCF.Edu",
-  "Social Media Directory",
-];
-
-const COLUMN_3 = [
-  "Corporate Partnerships",
-  "Mental Health & Performance",
-];
-
-function FooterColumn({ links }: { links: string[] }) {
-  return (
-    <ul className="flex flex-col gap-2">
-      {links.map((label) => (
-        <li key={label}>
-          <a
-            href="#"
-            className="text-ucf-white/90 transition-colors hover:text-ucf-gold"
-          >
-            {label}
-          </a>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
+/**
+ * Minimal site footer with a single CTA and copyright line.
+ */
 export default function Footer() {
   return (
-    <footer className="w-full bg-ucf-black">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
-          {/* Logo */}
-          <div
-            className="font-bebas-neue text-2xl tracking-wide text-ucf-gold"
-            style={{ fontFamily: "var(--font-bebas-neue), sans-serif" }}
-          >
-            UCF KNIGHTS
-          </div>
-
-          {/* Three columns of links */}
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
-            <FooterColumn links={COLUMN_1} />
-            <FooterColumn links={COLUMN_2} />
-            <FooterColumn links={COLUMN_3} />
-          </div>
-        </div>
-
-        <div className="mt-12 border-t border-white/10 pt-6 text-center text-sm text-ucf-white/70">
+    <footer className="w-full border-t border-white/10 bg-ucf-black">
+      <div className="mx-auto max-w-7xl px-4 py-12 text-center sm:px-6 lg:px-8">
+        <BrandButton
+          href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(CONTACT_SUBJECT)}`}
+          variant="solid"
+          size="lg"
+        >
+          Connect with Antimatter
+        </BrandButton>
+        <p className="mt-8 text-sm text-ucf-white/40">
           © 2026 Antimatter Proposal for UCF Athletics
-        </div>
+        </p>
       </div>
     </footer>
   );
