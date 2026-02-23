@@ -4,6 +4,7 @@ import OptionCard from "@/components/options/OptionCard";
 import AddOnsSection from "@/components/options/AddOnsSection";
 import WhyAntimatterSection from "@/components/sections/WhyAntimatterSection";
 import PricingSection from "@/components/sections/PricingSection";
+import { IncludedPagesSection } from "@/components/sections/IncludedPagesSection";
 import HeroContent from "@/components/sections/HeroContent";
 import BrandButton from "@/components/ui/BrandButton";
 import NeonRevealCTA from "@/components/ui/NeonRevealCTA";
@@ -14,13 +15,6 @@ export const metadata: Metadata = {
     "Three premium web experience options to showcase luxury seating, suites, and event spaces—built inside UCFKnights.com.",
 };
 
-const INCLUDED_ITEMS = [
-  "Integrated within UCFKnights.com (navigation + sitemap alignment + CMS-ready)",
-  "One premium stadium landing experience",
-  "Up to five (5) luxury/suite/event detail pages",
-  "Responsive (mobile-first) and performance optimized",
-  "Lead capture / 'Speak to a Representative' CTA integration",
-];
 
 export default function Home() {
   return (
@@ -91,28 +85,9 @@ export default function Home() {
       <WhyAntimatterSection />
 
       {/* ───────── Section 4: What's Included ───────── */}
-      <section id="included" className="w-full scroll-mt-20 border-t border-white/10 bg-ucf-black px-4 py-16 md:py-20">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="font-display mb-10 text-center text-3xl tracking-wide text-ucf-white md:text-4xl">
-            What&apos;s Included in Every Package
-          </h2>
-          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {INCLUDED_ITEMS.map((item) => (
-              <li
-                key={item}
-                className="flex items-start gap-3 rounded-lg border border-white/10 bg-white/5 px-4 py-3"
-              >
-                <span className="mt-0.5 shrink-0 text-ucf-gold" aria-hidden>
-                  ✓
-                </span>
-                <span className="text-sm leading-relaxed text-ucf-white/90">
-                  {item}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      <div id="included" className="scroll-mt-20 border-t border-white/10">
+        <IncludedPagesSection />
+      </div>
 
       {/* ───────── Section 5: Production Add-Ons ───────── */}
       <section id="add-ons" className="w-full scroll-mt-20 border-t border-white/10 bg-ucf-black px-4 py-16 md:py-20">

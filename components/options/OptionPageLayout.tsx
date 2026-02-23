@@ -9,6 +9,7 @@ import Timeline from "./Timeline";
 import AddOnsSection from "./AddOnsSection";
 import BrandButton from "@/components/ui/BrandButton";
 import NeonRevealCTA from "@/components/ui/NeonRevealCTA";
+import { IncludedPagesSection } from "@/components/sections/IncludedPagesSection";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -137,26 +138,9 @@ export default function OptionPageLayout({ option }: OptionPageLayoutProps) {
       </motion.section>
 
       {/* Section 5: Included Luxury Pages */}
-      <motion.section className="w-full border-t border-white/10 bg-ucf-black px-4 py-16 md:py-20" variants={itemVariants}>
-        <div className="mx-auto max-w-3xl">
-          <h2 className="font-display mb-8 text-center text-3xl tracking-wide text-ucf-white md:text-4xl">
-            Included Luxury / Suite / Event Pages
-          </h2>
-          <p className="mb-6 text-center text-sm text-ucf-white/60">
-            Up to five (5) detail pages included in this package
-          </p>
-          <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {option.includedPages.map((page, i) => (
-              <li key={page} className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/5 px-4 py-3">
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-ucf-gold/10 text-xs font-bold text-ucf-gold">
-                  {i + 1}
-                </span>
-                <span className="text-sm text-ucf-white/90">{page}</span>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </motion.section>
+      <motion.div className="border-t border-white/10" variants={itemVariants}>
+        <IncludedPagesSection />
+      </motion.div>
 
       {/* Section 6: Add-Ons */}
       <motion.section className="w-full border-t border-white/10 bg-ucf-black px-4 py-16 md:py-20" variants={itemVariants}>
