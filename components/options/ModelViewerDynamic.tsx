@@ -22,7 +22,6 @@ interface ModelViewerDynamicProps {
   className?: string;
   autoActivate?: boolean;
   autoRotate?: boolean;
-  enableControls?: boolean;
 }
 
 export default function ModelViewerDynamic({
@@ -31,7 +30,6 @@ export default function ModelViewerDynamic({
   className = "",
   autoActivate = false,
   autoRotate = true,
-  enableControls = false,
 }: ModelViewerDynamicProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -68,7 +66,6 @@ export default function ModelViewerDynamic({
         <ModelViewer
           modelUrl={modelUrl}
           autoRotate={autoRotate}
-          enableControls={enableControls}
         />
       ) : (
         <>

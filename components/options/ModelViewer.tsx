@@ -11,7 +11,6 @@ import { OrbitControls, Environment, useGLTF, Center } from "@react-three/drei";
 interface ModelViewerProps {
   modelUrl: string;
   autoRotate?: boolean;
-  enableControls?: boolean;
 }
 
 function Model({ url }: { url: string }) {
@@ -36,7 +35,6 @@ function getReducedMotion() {
 export default function ModelViewer({
   modelUrl,
   autoRotate = true,
-  enableControls = false,
 }: ModelViewerProps) {
   const reducedMotion = useSyncExternalStore(
     subscribeReducedMotion,
@@ -61,8 +59,8 @@ export default function ModelViewer({
       </Suspense>
       <OrbitControls
         enablePan={false}
-        enableZoom={enableControls}
-        enableRotate={enableControls}
+        enableZoom
+        enableRotate
         minDistance={100}
         maxDistance={600}
         autoRotate={shouldAutoRotate}

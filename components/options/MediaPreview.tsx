@@ -68,7 +68,6 @@ export default function MediaPreview({
         className={containerClass}
         autoActivate={autoplay}
         autoRotate={autoRotate}
-        enableControls={false}
       />
     );
   }
