@@ -3,7 +3,6 @@
 import { Check } from "lucide-react";
 import { motion } from "motion/react";
 import BrandButton from "@/components/ui/BrandButton";
-import { CONTACT_EMAIL, CONTACT_SUBJECT } from "@/config/stadiumOptions";
 
 interface Plan {
   name: string;
@@ -158,16 +157,6 @@ export default function PricingSection() {
           (estimate: $3,500 per trip).
         </motion.p>
 
-        {/* CTA */}
-        <motion.div className="mt-10 flex justify-center" variants={itemVariants}>
-          <BrandButton
-            href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(CONTACT_SUBJECT)}`}
-            variant="solid"
-            size="lg"
-          >
-            Let&apos;s Connect
-          </BrandButton>
-        </motion.div>
       </motion.div>
     </section>
   );
