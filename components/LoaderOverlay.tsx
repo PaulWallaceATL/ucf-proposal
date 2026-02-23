@@ -1,10 +1,7 @@
 "use client";
 
-import { useEffect, useCallback, useSyncExternalStore } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useSyncExternalStore } from "react";
 import SplitText from "@/components/reactbits/SplitText";
-
-const PRELOADER_SEEN_KEY = "ucf-proposal-preloader-seen";
 
 const MQ = "(prefers-reduced-motion: reduce)";
 function subscribeRM(cb: () => void) {
@@ -16,57 +13,16 @@ function getRM() {
   return window.matchMedia(MQ).matches;
 }
 
-function subscribeNoop() {
-  return () => {};
-}
-function getTrue() {
-  return true;
-}
-
 /**
- * Premium initial-load preloader with SplitText animated headline.
- * Shows once per session (sessionStorage). UCF black + gold branding.
+ * Route-segment loading overlay for Next.js App Router (app/loading.tsx).
+ * UCF black + gold branding with SplitText animated headline.
  */
-export default function Preloader() {
+export default function LoaderOverlay() {
   const reducedMotion = useSyncExternalStore(subscribeRM, getRM, () => false);
-  const hydrated = useSyncExternalStore(subscribeNoop, getTrue, () => false);
-
-  const shouldShow =
-    hydrated &&
-    typeof window !== "undefined" &&
-    !sessionStorage.getItem(PRELOADER_SEEN_KEY);
-
-  const handleExitComplete = useCallback(() => {
-    sessionStorage.setItem(PRELOADER_SEEN_KEY, "1");
-  }, []);
-
-  useEffect(() => {
-    if (!shouldShow) return;
-    const t = setTimeout(() => {
-      sessionStorage.setItem(PRELOADER_SEEN_KEY, "1");
-      window.dispatchEvent(new Event("preloader-done"));
-    }, 2800);
-    return () => clearTimeout(t);
-  }, [shouldShow]);
-
-  if (!hydrated) return null;
 
   return (
-    <AnimatePresence onExitComplete={handleExitComplete}>
-      {shouldShow && !sessionStorage.getItem(PRELOADER_SEEN_KEY + "-closing") && (
-        <PreloaderUI reducedMotion={reducedMotion} />
-      )}
-    </AnimatePresence>
-  );
-}
-
-function PreloaderUI({ reducedMotion }: { reducedMotion: boolean }) {
-  return (
-    <motion.div
-      className="fixed inset-0 z-[10000] flex items-center justify-center bg-ucf-black"
-      initial={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.4, ease: "easeInOut" }}
+    <div
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-ucf-black"
       role="status"
       aria-live="polite"
       aria-label="Loading"
@@ -104,12 +60,13 @@ function PreloaderUI({ reducedMotion }: { reducedMotion: boolean }) {
               UCFKnights.com.
             </p>
 
+            {/* Indeterminate progress bar */}
             <div className="mt-6 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
               <div className="loader-bar h-full w-1/3 rounded-full bg-ucf-gold" />
             </div>
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
