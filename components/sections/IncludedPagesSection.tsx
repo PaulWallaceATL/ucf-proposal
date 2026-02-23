@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Crown, Building2, Users, CalendarDays, Star } from "lucide-react";
+import { Crown, Building2, Users, CalendarDays, Star, Camera } from "lucide-react";
 
 const features = [
   {
@@ -12,9 +12,9 @@ const features = [
   },
   {
     icon: Building2,
-    title: "Club Level",
+    title: "Club Level & Member Areas",
     description:
-      "Highlight elevated seating experiences with hospitality benefits, sightlines, and premium access positioning.",
+      "Highlight elevated seating and member-exclusive spaces with hospitality benefits, sightlines, and premium access positioning.",
   },
   {
     icon: Users,
@@ -34,10 +34,16 @@ const features = [
     description:
       "High-impact presentation of premium seating inventory with storytelling and conversion-focused layout.",
   },
+  {
+    icon: Camera,
+    title: "Photography & Virtual Tours",
+    description:
+      "Pages can feature professional interior photography, Matterport 3D walkthroughs, or immersive media to bring each space to life remotely.",
+  },
 ];
 
 /**
- * Features5-style grid section showcasing the 5 included luxury pages.
+ * Features5-style grid section showcasing the included luxury pages.
  * Dark UCF-branded theme with motion stagger-in and bordered grid cells.
  */
 export function IncludedPagesSection() {
@@ -63,13 +69,14 @@ export function IncludedPagesSection() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="mx-auto mt-6 max-w-3xl text-base text-ucf-white/50 sm:text-lg"
           >
-            Up to five (5) premium detail pages are included in this
-            package&mdash;each designed to elevate donor perception, drive
-            premium seating conversion, and enhance recruiting impact.
+            Every package includes up to five (5) premium detail
+            pages&mdash;showcasing suites, member areas, event spaces, and more.
+            Pages can incorporate professional photography, Matterport 3D tours,
+            or immersive media to bring each space to life for buyers and donors.
           </motion.p>
         </div>
 
-        {/* Features Grid */}
+        {/* Features Grid — 6 cells, 3x2 on desktop */}
         <div className="grid grid-cols-1 overflow-hidden rounded-2xl border border-white/10 md:grid-cols-2 lg:grid-cols-3">
           {features.map((feature, index) => {
             const Icon = feature.icon;
@@ -81,10 +88,10 @@ export function IncludedPagesSection() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.08 }}
                 className={`bg-ucf-black p-8 md:p-10
-                  ${index !== features.length - 1 ? "border-b border-white/10" : ""}
-                  ${index % 2 === 0 ? "md:border-r md:border-white/10" : ""}
-                  ${(index + 1) % 3 !== 0 ? "lg:border-r lg:border-white/10" : ""}
-                  ${index < 3 ? "lg:border-b lg:border-white/10" : ""}
+                  ${index < 3 ? "border-b border-white/10" : ""}
+                  ${index % 3 !== 2 ? "lg:border-r lg:border-white/10" : ""}
+                  ${index % 2 === 0 && index < 4 ? "md:border-r md:border-white/10" : ""}
+                  ${index < 4 ? "md:border-b md:border-white/10" : ""}
                 `}
               >
                 <div className="mb-8 flex justify-center">

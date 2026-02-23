@@ -85,7 +85,7 @@ export default function Home() {
       <WhyAntimatterSection />
 
       {/* ───────── Section 4: What's Included ───────── */}
-      <div id="included" className="scroll-mt-20 border-t border-white/10">
+      <div id="included" className="scroll-mt-20">
         <IncludedPagesSection />
       </div>
 

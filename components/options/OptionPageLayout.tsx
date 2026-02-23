@@ -138,7 +138,7 @@ export default function OptionPageLayout({ option }: OptionPageLayoutProps) {
       </motion.section>
 
       {/* Section 5: Included Luxury Pages */}
-      <motion.div className="border-t border-white/10" variants={itemVariants}>
+      <motion.div variants={itemVariants}>
         <IncludedPagesSection />
       </motion.div>
 
