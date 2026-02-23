@@ -34,7 +34,7 @@ export default function Home() {
           {/* Right column: stadium video in premium frame */}
           <div className="relative mx-auto w-full max-w-lg lg:max-w-none">
             <div className="overflow-hidden rounded-2xl border border-ucf-gold/20 bg-white/5 p-2 shadow-2xl shadow-ucf-gold/5">
-              <div className="relative aspect-video overflow-hidden rounded-xl">
+              <div className="relative aspect-square overflow-hidden rounded-xl">
                 <video
                   className="h-full w-full object-cover"
                   src="/assets/Stadium_Zoom_Video_Generation.mp4"
