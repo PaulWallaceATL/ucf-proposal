@@ -3,7 +3,7 @@ import { Inter, Bebas_Neue } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import CustomCursor from "@/components/CustomCursor";
+
 import Preloader from "@/components/Preloader";
 import PageTransition from "@/components/PageTransition";
 
@@ -34,7 +34,6 @@ export default function RootLayout({
         className={`${inter.className} ${bebasNeue.variable} antialiased bg-ucf-black text-ucf-white`}
       >
         <Preloader />
-        <CustomCursor />
         <Navbar />
         <PageTransition>{children}</PageTransition>
         <Footer />

@@ -16,6 +16,8 @@ interface OptionCardProps {
   mediaType: MediaType;
   mediaSrc: string;
   posterSrc?: string | null;
+  autoplay?: boolean;
+  showTag?: string | null;
 }
 
 export default function OptionCard({
@@ -28,6 +30,8 @@ export default function OptionCard({
   mediaType,
   mediaSrc,
   posterSrc,
+  autoplay = false,
+  showTag,
 }: OptionCardProps) {
   return (
     <article className="flex flex-col overflow-hidden rounded-xl border border-white/10 bg-white/5 transition-colors hover:border-ucf-gold/30 hover:bg-white/[0.08]">
@@ -38,7 +42,14 @@ export default function OptionCard({
           src={mediaSrc}
           poster={posterSrc}
           alt={`${title} preview`}
+          autoplay={autoplay}
         />
+
+        {showTag && (
+          <span className="try-me-tag absolute right-3 top-3 z-10 rounded-full bg-ucf-gold px-3 py-1 text-xs font-bold uppercase tracking-wide text-ucf-black shadow-md shadow-ucf-gold/30 sm:px-4 sm:py-1.5 sm:text-sm">
+            {showTag}
+          </span>
+        )}
       </div>
 
       {/* Content area */}

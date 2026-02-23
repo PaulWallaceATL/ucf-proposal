@@ -7,7 +7,7 @@ import ModelViewerDynamic from "./ModelViewerDynamic";
 
 /**
  * Polymorphic media preview: renders image, video, or 3D preview
- * based on the mediaType prop.
+ * based on the mediaType prop. Supports autoplay/autoRotate pass-through.
  */
 interface MediaPreviewProps {
   mediaType: MediaType;
@@ -15,8 +15,10 @@ interface MediaPreviewProps {
   poster?: string | null;
   alt?: string;
   className?: string;
-  /** When true, renders at a larger size for option detail pages */
   fullSize?: boolean;
+  autoplay?: boolean;
+  autoRotate?: boolean;
+  showTag?: boolean;
 }
 
 export default function MediaPreview({
@@ -26,10 +28,10 @@ export default function MediaPreview({
   alt = "Media preview",
   className = "",
   fullSize = false,
+  autoplay = false,
+  autoRotate = true,
 }: MediaPreviewProps) {
-  const containerClass = fullSize
-    ? `aspect-video w-full ${className}`
-    : `aspect-video w-full ${className}`;
+  const containerClass = `aspect-video w-full ${className}`;
 
   if (mediaType === "image") {
     return (
@@ -53,6 +55,7 @@ export default function MediaPreview({
         poster={poster}
         alt={alt}
         className={containerClass}
+        autoplay={autoplay}
       />
     );
   }
@@ -61,8 +64,11 @@ export default function MediaPreview({
     return (
       <ModelViewerDynamic
         modelUrl={src}
-        posterUrl={poster}
+        posterUrl={autoplay ? null : poster}
         className={containerClass}
+        autoActivate={autoplay}
+        autoRotate={autoRotate}
+        enableControls={false}
       />
     );
   }

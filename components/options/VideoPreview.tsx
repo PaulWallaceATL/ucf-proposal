@@ -1,17 +1,28 @@
 "use client";
 
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect, useSyncExternalStore } from "react";
 
 /**
- * Accessible video preview: muted, playsInline, poster frame.
- * Desktop: hover to play/pause. Mobile: click to play with controls.
- * Includes a visible play overlay button for accessibility.
+ * Video preview component with two modes:
+ * - autoplay mode: muted inline autoplay, no overlay, subtle hover effects
+ * - interactive mode: hover-to-play on desktop, click-to-play on mobile, play overlay
  */
 interface VideoPreviewProps {
   src: string;
   poster?: string | null;
   alt?: string;
   className?: string;
+  autoplay?: boolean;
+}
+
+const MQ = "(prefers-reduced-motion: reduce)";
+function subscribeReducedMotion(cb: () => void) {
+  const mq = window.matchMedia(MQ);
+  mq.addEventListener("change", cb);
+  return () => mq.removeEventListener("change", cb);
+}
+function getReducedMotion() {
+  return window.matchMedia(MQ).matches;
 }
 
 export default function VideoPreview({
@@ -19,14 +30,38 @@ export default function VideoPreview({
   poster,
   alt = "Video preview",
   className = "",
+  autoplay = false,
 }: VideoPreviewProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const reducedMotion = useSyncExternalStore(
+    subscribeReducedMotion,
+    getReducedMotion,
+    () => false
+  );
+
+  useEffect(() => {
+    if (!autoplay) return;
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+          setIsPlaying(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "100px" }
+    );
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, [autoplay]);
 
   const togglePlay = useCallback(() => {
     const video = videoRef.current;
     if (!video) return;
-
     if (video.paused) {
       video.play().catch(() => {});
       setIsPlaying(true);
@@ -37,22 +72,29 @@ export default function VideoPreview({
   }, []);
 
   const handleMouseEnter = useCallback(() => {
+    if (autoplay) return;
     const video = videoRef.current;
     if (!video || !window.matchMedia("(pointer: fine)").matches) return;
     video.play().catch(() => {});
     setIsPlaying(true);
-  }, []);
+  }, [autoplay]);
 
   const handleMouseLeave = useCallback(() => {
+    if (autoplay) return;
     const video = videoRef.current;
     if (!video || !window.matchMedia("(pointer: fine)").matches) return;
     video.pause();
     setIsPlaying(false);
-  }, []);
+  }, [autoplay]);
+
+  const hoverClass =
+    autoplay && !reducedMotion
+      ? "transition-[filter,transform] duration-300 hover:brightness-110 hover:scale-[1.02]"
+      : "";
 
   return (
     <div
-      className={`group relative overflow-hidden ${className}`}
+      className={`group relative overflow-hidden ${hoverClass} ${className}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -66,10 +108,10 @@ export default function VideoPreview({
         preload="metadata"
         className="h-full w-full object-cover"
         aria-label={alt}
+        {...(autoplay ? { autoPlay: true } : {})}
       />
 
-      {/* Play overlay button */}
-      {!isPlaying && (
+      {!autoplay && !isPlaying && (
         <button
           type="button"
           onClick={togglePlay}

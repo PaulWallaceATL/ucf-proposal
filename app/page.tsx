@@ -103,6 +103,8 @@ export default function Home() {
                 mediaType={opt.mediaType}
                 mediaSrc={opt.mediaSrc}
                 posterSrc={opt.posterSrc}
+                autoplay={opt.mediaType === "3d" || opt.mediaType === "video"}
+                showTag={opt.mediaType === "3d" ? "Try Me!" : null}
               />
             ))}
           </div>
